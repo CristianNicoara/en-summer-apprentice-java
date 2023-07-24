@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface VenueRepository extends JpaRepository<Venue, Integer> {
-    List<Venue> findVenueById(Integer venueId);
+    Venue findVenueById(Integer venueId);
 }

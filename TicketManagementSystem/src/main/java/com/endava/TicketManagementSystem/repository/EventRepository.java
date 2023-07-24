@@ -11,5 +11,5 @@ import java.util.List;
 public interface EventRepository extends JpaRepository<Event, Integer> {
     List<Event> findEventsByVenueIdAndEventTypeName(@Param("venue_id")Integer venueId, @Param("event_type")String eventTypeName);
 
-    List<Event> findEventById(Integer eventId);
+    Event findEventById(Integer eventId);
 }

@@ -1,6 +1,5 @@
 package com.endava.TicketManagementSystem.controller;
 
-import com.endava.TicketManagementSystem.dto.GetOrderResponseDTO;
 import com.endava.TicketManagementSystem.dto.OrderRequestDTO;
 import com.endava.TicketManagementSystem.dto.OrderResponseDTO;
 import com.endava.TicketManagementSystem.model.Order;
@@ -17,7 +16,7 @@ public class OrderController {
     private OrderService orderService;
 
     @GetMapping("")
-    public List<GetOrderResponseDTO> getOrdersByCustomerId(){
+    public List<OrderResponseDTO> getOrdersByCustomerId(){
         Integer customerId = 4;
         return orderService.getOrdersByCustomerId(customerId);
     }
