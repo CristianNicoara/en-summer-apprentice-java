@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("/events")
 public class EventController {
     @Autowired
-    EventService eventService;
+    private EventService eventService;
 
     @GetMapping("")
     public List<EventResponseDTO> getEventsByVenueIdAndEventTypeName(@RequestParam Integer venueId, @RequestParam String eventTypeName){

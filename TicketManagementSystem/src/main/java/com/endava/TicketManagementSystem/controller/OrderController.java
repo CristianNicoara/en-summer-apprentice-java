@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("/orders")
 public class OrderController {
     @Autowired
-    OrderService orderService;
+    private OrderService orderService;
 
     @GetMapping("")
     public List<GetOrderResponseDTO> getOrdersByCustomerId(){

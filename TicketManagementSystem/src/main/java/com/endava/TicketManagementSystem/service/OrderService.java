@@ -14,19 +14,15 @@ import java.util.List;
 public class OrderService {
 
     @Autowired
-    OrderRepository orderRepository;
+    private OrderRepository orderRepository;
     @Autowired
-    CustomerRepository customerRepository;
+    private CustomerRepository customerRepository;
     @Autowired
-    TicketCategoryRepository ticketCategoryRepository;
+    private TicketCategoryRepository ticketCategoryRepository;
     @Autowired
-    EventRepository eventRepository;
+    private EventRepository eventRepository;
     @Autowired
-    VenueRepository venueRepository;
-
-    public List<Order> getAllOrders(){
-        return orderRepository.findAll();
-    }
+    private VenueRepository venueRepository;
 
     public List<GetOrderResponseDTO> getOrdersByCustomerId(Integer customerId){
         List<Order> orders = orderRepository.findOrdersByCustomerId(customerId);
@@ -43,19 +39,6 @@ public class OrderService {
         return orderResponses;
     }
 
-    boolean validateOrder(Integer eventId, Integer numberOfTickets){
-        int numberOfTicketsBought = 0;
-        List<TicketCategory> ticketsForEvent = ticketCategoryRepository.findTicketCategoriesByEventId(eventId);
-        for (TicketCategory ticket : ticketsForEvent){
-            List<Order> ordersForTickets = orderRepository.findOrdersByTicketCategoryId(ticket.getId());
-            for (Order order : ordersForTickets){
-                numberOfTicketsBought += order.getNumberOfTickets();
-            }
-        }
-        Event event = eventRepository.findEventById(eventId).get(0);
-        Venue venue = venueRepository.findVenueById(event.getVenue().getId()).get(0);
-        return numberOfTicketsBought + numberOfTickets <= venue.getCapacity();
-    }
 
     public Order addOrder(Integer eventId, Integer ticketCategoryId, Integer numberOfTickets){
         Integer customerId = 5;
@@ -67,5 +50,19 @@ public class OrderService {
             return orderRepository.save(order);
         } else
             return null;
+    }
+
+    private boolean validateOrder(Integer eventId, Integer numberOfTickets){
+        int numberOfTicketsBought = 0;
+        List<TicketCategory> ticketsForEvent = ticketCategoryRepository.findTicketCategoriesByEventId(eventId);
+        for (TicketCategory ticket : ticketsForEvent){
+            List<Order> ordersForTickets = orderRepository.findOrdersByTicketCategoryId(ticket.getId());
+            for (Order order : ordersForTickets){
+                numberOfTicketsBought += order.getNumberOfTickets();
+            }
+        }
+        Event event = eventRepository.findEventById(eventId).get(0);
+        Venue venue = venueRepository.findVenueById(event.getVenue().getId()).get(0);
+        return numberOfTicketsBought + numberOfTickets <= venue.getCapacity();
     }
 }

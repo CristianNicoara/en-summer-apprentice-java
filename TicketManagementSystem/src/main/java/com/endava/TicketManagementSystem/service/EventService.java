@@ -1,6 +1,7 @@
 package com.endava.TicketManagementSystem.service;
 
 import com.endava.TicketManagementSystem.dto.EventResponseDTO;
+import com.endava.TicketManagementSystem.dto.TicketCategoryDTO;
 import com.endava.TicketManagementSystem.model.Event;
 import com.endava.TicketManagementSystem.model.TicketCategory;
 import com.endava.TicketManagementSystem.model.Venue;
@@ -34,7 +35,12 @@ public class EventService {
             Date startDate = event.getStartDate();
             Date endDate = event.getEndDate();
             List<TicketCategory> ticketCategories = ticketCategoryRepository.findTicketCategoriesByEventId(eventId);
-            EventResponseDTO eventResponse = new EventResponseDTO(eventId,venue,eventTypeName,description,name,startDate,endDate,ticketCategories);
+            List<TicketCategoryDTO> ticketCategoryDTOs = new ArrayList<>();
+            for (TicketCategory ticketCategory : ticketCategories){
+                TicketCategoryDTO ticketCategoryDTO = new TicketCategoryDTO(ticketCategory.getId(), ticketCategory.getDescription(), ticketCategory.getPrice());
+                ticketCategoryDTOs.add(ticketCategoryDTO);
+            }
+            EventResponseDTO eventResponse = new EventResponseDTO(eventId,venue,eventTypeName,description,name,startDate,endDate,ticketCategoryDTOs);
             eventResponses.add(eventResponse);
         }
         return eventResponses;

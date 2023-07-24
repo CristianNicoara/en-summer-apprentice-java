@@ -1,6 +1,5 @@
 package com.endava.TicketManagementSystem.dto;
 
-import com.endava.TicketManagementSystem.model.TicketCategory;
 import com.endava.TicketManagementSystem.model.Venue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,5 +21,5 @@ public class EventResponseDTO {
     private String name;
     private Date startDate;
     private Date endDate;
-    private List<TicketCategory> ticketCategories;
+    private List<TicketCategoryDTO> ticketCategories;
 }
