@@ -36,4 +36,12 @@ public class Order {
 
     @Column(name = "total_price")
     private Double totalPrice;
+
+    public Order(Customer customer, TicketCategory ticketCategory, Date orderedAt, Integer numberOfTickets, Double totalPrice) {
+        this.customer = customer;
+        this.ticketCategory = ticketCategory;
+        this.orderedAt = orderedAt;
+        this.numberOfTickets = numberOfTickets;
+        this.totalPrice = totalPrice;
+    }
 }
